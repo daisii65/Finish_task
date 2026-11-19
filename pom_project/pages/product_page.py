@@ -12,6 +12,8 @@ class ProductPage(BasePage):
         self.searched_title = page.get_by_text("Searched Products")
         self.view_product_links = page.locator("a[href*='/product_details/']")
         self.product_information = page.locator(".product-information")
+        self.add_to_cart_buttons = page.locator(".product-overlay .add-to-cart")
+        self.continue_shopping_button = page.locator(".close-modal")
 
     def open_products(self):
         self.open(self.URL)
@@ -23,3 +25,12 @@ class ProductPage(BasePage):
 
     def open_first_product(self):
         self.view_product_links.first.click()
+
+
+    def add_first_product_to_cart(self):
+        self.products.first.hover()
+        self.add_to_cart_buttons.first.click()
+        self.continue_shopping_button.click()
+
+    def get_first_product_name(self):
+        return self.product_info.first.locator("p").inner_text()
